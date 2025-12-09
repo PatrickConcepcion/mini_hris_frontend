@@ -114,6 +114,16 @@ The application uses **Tailwind CSS 4** for styling and **@nuxt/ui** for UI comp
   - Clarify UI/UX requirements if vague.
   - Confirm API contract details if not provided.
 
+- **Investigation & Planning**
+  - When asked about major plans or feature implementation status, conduct thorough investigation across both frontend and backend
+  - Navigate through the codebase systematically: check routes, controllers, models, components, pages, and database schemas
+  - Provide comprehensive analysis with specific file references and implementation details
+  - Identify gaps, existing implementations, and integration points between frontend and backend
+  - Suggest implementation approaches based on current architecture
+  - Explain code logic, workflows, and data flow thoroughly with clear examples
+  - Be prepared to answer follow-up questions about any aspect of the investigation
+  - Reference actual code snippets when explaining implementations
+
 - **Follow Standards**
   - Adhere to Vue 3 Style Guide (Priority A & B).
   - Use Tailwind classes idiomatically.

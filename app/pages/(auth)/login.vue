@@ -13,6 +13,7 @@
         <UFormField label="Email" name="email" class="w-full">
           <UInput
             v-model="state.email"
+            color="secondary"
             type="email"
             placeholder="Email or Username"
             class="w-full"
@@ -23,11 +24,22 @@
         <UFormField label="Password" name="password" class="w-full">
           <UInput
             v-model="state.password"
-            type="password"
+            color="secondary"
+            :type="showPassword ? 'text' : 'password'"
             class="w-full"
             placeholder="Password"
             icon="lucide:lock-keyhole"
-          />
+          >
+            <template #trailing>
+              <UButton
+                variant="link"
+                color="neutral"
+                @click="showPassword = !showPassword"
+                :icon="showPassword ? 'lucide:eye-off' : 'lucide:eye'"
+                size="sm"
+              />
+            </template>
+          </UInput>
         </UFormField>
 
         <div class="flex justify-between items-center">
@@ -60,8 +72,27 @@ const state = reactive({
   remember_me: false,
 })
 
-const onSubmit = (event: FormSubmitEvent<Schema>) => {
-  console.log('Login submitted with valid data:', event.data)
-  // Here you would typically make an API call
+const showPassword = ref(false)
+
+const onSubmit = async (event: FormSubmitEvent<Schema>) => {
+  const authStore = useAuthStore()
+  const toast = useToast()
+
+  try {
+    await authStore.login({
+      email: event.data.email,
+      password: event.data.password
+    })
+
+    // Navigate to home page
+    await navigateTo('/')
+  } catch (error: any) {
+    console.error('Login error:', error)
+    toast.add({
+      title: 'Login Failed',
+      description: error.data?.message || 'An error occurred during login.',
+      color: 'warning'
+    })
+  }
 }
 </script>
